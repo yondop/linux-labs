@@ -1,0 +1,3 @@
+function kek() {
+  return 'kek';
+}
