@@ -5,7 +5,7 @@ while [[ : ]]; do
   case $cmd in
     1)  echo $(ls);;
     2)
-      while [[ : ]]; do
+      while true; do
         read -p 'enter file name...'  fileName
         if [[ -z $fileName ]]; then
           break
@@ -19,14 +19,14 @@ while [[ : ]]; do
         fi
       done;;
     3)
-      while [[ : ]]; do
+      while true; do
         read -p 'enter file name...'  fileName
         if [[ -z $fileName ]]; then
           break
         fi
         # check if file exist
         if [[ -e $fileName && -f $fileName ]]; then
-          while [[ : ]]; do
+          while true; do
             read -p 'enter new file name...'  newFileName
             if [[ -z $newFileName ]]; then
               break
