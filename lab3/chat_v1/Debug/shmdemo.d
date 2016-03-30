@@ -1,0 +1,1 @@
+shmdemo.o: ../shmdemo.c

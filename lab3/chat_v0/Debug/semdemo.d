@@ -1,0 +1,1 @@
+semdemo.o: ../semdemo.c
