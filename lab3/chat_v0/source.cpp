@@ -93,6 +93,7 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
     char* s= (char*)data;
+    strcpy(s, "");
     pid_t pid = fork();
     int rv;
 
@@ -103,8 +104,8 @@ int main(int argc, char *argv[]) {
 
     if (pid == 0) {
         while(1){
-            system("clear");
-            printf("%s\n",s);
+          system("clear");
+          printf("%s\n",s);
         	sem(semid,sb_lock_output);
         }
         exit(rv);
@@ -116,7 +117,7 @@ int main(int argc, char *argv[]) {
 
 			sem(semid,sb_lock_shm);
 			strcpy(message, "");
-			if (f) {
+			if (f || (strlen(s) + strlen(str)) > SHM_SIZE) {
 				strcat(message, name);
 				f = false;
 			}
@@ -129,12 +130,14 @@ int main(int argc, char *argv[]) {
 			strcat(message, str);
 			strcat(message, "");
 
+
 			if ((strlen(s) + strlen(message)) > SHM_SIZE)
 				strcpy(s, "");
 			strcat(s, message);
-			sem(semid,sb_unlock_shm);
 
-			sem(semid,sb_unlock_output);
+			int val = semctl(semid, 1, GETNCNT);
+			sem(semid,sb_unlock_shm);
+			sb_unlock_output.sem_op = val;
 			sem(semid,sb_unlock_output);
 		}
     }

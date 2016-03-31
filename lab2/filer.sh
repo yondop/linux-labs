@@ -1,4 +1,4 @@
-while [[ : ]]; do
+while true; do
   echo ' 1 - filelist'; echo ' 2 - delete'
   echo ' 3 - rename'; echo ' 4 - exit'
   read -p "enter command... " cmd

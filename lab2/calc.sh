@@ -6,12 +6,22 @@ if [[ $# != 3 ]]; then
 fi
 echo $a'x'^2+$b'x'+$c=0
 
-d=$(( $b*$b-4*$a*$c ))
+if [[ $a = 0  ]]; then
+  if [[ $b = 0 ]]; then
+    echo Any number
+  else
+    x=$(echo "scale=3; -($c)/($b)" | bc)
+    echo 'x = '$x
+  fi
+  exit
+fi
+
+d=$(( ($b)*($b)-4*($a)*($c) ))
 echo 'D= '$d
 
 if (( $d > 0 )); then
-  x1=$(echo "scale=3; 0.5*(-($b)+sqrt(($d))/($a)" | bc)
-  x2=$(echo "scale=3; 0.5*(-($b)-sqrt(($d))/($a)" | bc)
+  x1=$(echo "scale=3; 0.5*(-($b)+sqrt($d))/($a)" | bc)
+  x2=$(echo "scale=3; 0.5*(-($b)-sqrt($d))/($a)" | bc)
   echo 'x1= '$x1
   echo 'x2= '$x2
 elif (( $d == 0 )); then
